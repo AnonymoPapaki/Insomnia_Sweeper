@@ -76,8 +76,11 @@
     <ClCompile Include="win32_minesweeper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.h" />
+    <ClInclude Include="graphics.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="spritework.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Minesweeper.rc" />

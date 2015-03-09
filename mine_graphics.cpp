@@ -2,56 +2,13 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "helper.h"
-#include "mine_spritework.cpp"
-
-struct game_buffer
-{
-	void* Memory;
-	int MemorySize;
-	int Width;
-	int Height;
-};
+#include "graphics.h"
 
 
-struct game_ui
-{
-	int XTiles;
-	int YTiles;
 
-	int OffsetTop;
-	int OffsetBottom;
-	int OffsetLeft;
-	int OffsetRight;
+game_ui UI;
 
-	int BorderHeight;
-	int BorderWidth;
-
-	int BlockWidth;
-	int BlockHeight;
-
-	int HorizontalBorderLength;
-	int VerticalUpperBorderLength;
-	int VerticalLowerBorderLength;
-	int UpperSpaceHeight;
-
-	int GameWidth;
-	int GameHeight;
-
-	int DigitWidth;
-	int DigitBoardWidth;
-	int DigitBoardLeftX;
-	int DigitBoardRightX;
-	int DigitBoardY;
-
-	int FaceX;
-	int FaceY;
-	int FaceWidth;
-	int FaceHeight;
-};
-
-static game_ui UI;
-
-static void DrawSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, int DrawX, int DrawY)
+void DrawSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, int DrawX, int DrawY)
 {
 	uint32_t* WritePos = (uint32_t*)(BackBuffer->Memory);
 	WritePos = WritePos + DrawY*BackBuffer->Width + DrawX;
@@ -73,7 +30,7 @@ static void DrawSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, int
 
 }
 
-static void TrailSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, int DrawX, int DrawY, int XCopies, int YCopies)
+void TrailSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, int DrawX, int DrawY, int XCopies, int YCopies)
 {
 	for (int Trail = 0; Trail <= XCopies; Trail++)
 	{
@@ -86,7 +43,7 @@ static void TrailSpriteOnBuffer(game_buffer* BackBuffer, game_sprite* Sprite, in
 	}
 }
 
-static void InitializeGameUI(int XTiles, int YTiles, game_sprite* SpriteMap)
+void InitializeGameUI(int XTiles, int YTiles, game_sprite* SpriteMap)
 {
 	UI.XTiles = XTiles;
 	UI.YTiles = YTiles;
@@ -123,7 +80,7 @@ static void InitializeGameUI(int XTiles, int YTiles, game_sprite* SpriteMap)
 	UI.FaceY = UI.BorderHeight + UI.OffsetTop;
 }
 
-static void DrawBoardOutline(game_buffer* BackBuffer, game_sprite* SpriteMap)
+void DrawBoardOutline(game_buffer* BackBuffer, game_sprite* SpriteMap)
 {
 	TrailSpriteOnBuffer(BackBuffer, &SpriteMap[FILLER_T], UI.BorderWidth, 0, UI.HorizontalBorderLength, 0);
 
@@ -157,7 +114,7 @@ static void DrawBoardOutline(game_buffer* BackBuffer, game_sprite* SpriteMap)
 	DrawSpriteOnBuffer(BackBuffer, &SpriteMap[FACE_SMILE], UI.FaceX, UI.FaceY);
 }
 
-static void InitializeGame(game_buffer* BackBuffer, int BoardX, int BoardY, game_sprite* SpriteMap)
+void InitializeGame(game_buffer* BackBuffer, int BoardX, int BoardY, game_sprite* SpriteMap)
 {
 	InitializeGameUI(BoardX, BoardY, SpriteMap);
 

@@ -5,7 +5,8 @@
 #include<stdint.h>
 #include<stdio.h>
 #include"helper.h"
-#include"mine_game.cpp"
+#include "game.h"
+#include "graphics.h"
 
 #define Win32SpriteSheetResourceID MAKEINTRESOURCE(IDB_BITMAP1)
 #define Win32IconResourceID MAKEINTRESOURCE(IDI_ICON1)
